@@ -1,0 +1,43 @@
+---
+// About.astro
+const stats = [
+  { label: 'Photos delivered', value: '100%', sub: 'unedited & full-res' },
+  { label: 'Editing time', value: '0 hrs', sub: 'what you see is what you get' },
+  { label: 'Crew size', value: '1', sub: "that's me, hi" },
+  { label: 'Delivery', value: '< 1 hr', sub: 'straight to your phone' },
+];
+---
+<section class="py-24 md:py-32 bg-stone-100">
+  <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-5 gap-12 items-center">
+    <div class="md:col-span-3">
+      <span class="font-mono text-xs text-primary uppercase tracking-widest">About the guy</span>
+      <h2 class="font-display text-4xl md:text-5xl font-extrabold tracking-tight mt-4 leading-tight">
+        Not a studio.<br />
+        Just a Denver buddy with nice glass.
+      </h2>
+      <div class="mt-6 space-y-4 text-stone-600 leading-relaxed text-lg max-w-xl">
+        <p>
+          This is a one-person side hustle. I bring the same camera body and lenses a working
+          pro would bring — and I charge a fraction of what they do.
+        </p>
+        <p>
+          I don't do events, weddings, or anything that needs a three-person crew. I do
+          portraits: families, couples, individuals, headshots. We pick a spot, we wander, we
+          chat, we make some great frames. That's it.
+        </p>
+        <p class="text-foreground font-medium">
+          You'll have your photos before you get back to the car.
+        </p>
+      </div>
+    </div>
+    <div class="md:col-span-2 grid grid-cols-2 gap-3">
+      {stats.map(s => (
+        <div class="bg-background rounded-2xl p-5 border border-border">
+          <div class="font-mono text-[10px] text-stone-500 uppercase tracking-widest">{s.label}</div>
+          <div class="font-display text-3xl md:text-4xl font-extrabold tracking-tight mt-2 text-primary">{s.value}</div>
+          <div class="text-xs text-stone-500 mt-1">{s.sub}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

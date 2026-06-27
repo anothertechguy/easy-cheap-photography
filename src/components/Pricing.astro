@@ -1,0 +1,80 @@
+---
+// Pricing.astro
+const plans = [
+  {
+    tag: 'The Quickie',
+    sub: 'Perfect for headshots, LinkedIn, or a quick set for Instagram.',
+    price: '$99',
+    features: [
+      '30 minute session',
+      '50+ unedited high-res shots',
+      'One Denver Metro location',
+      'Instant on-site phone transfer',
+    ],
+    cta: 'Book 30 Mins',
+    highlight: false,
+  },
+  {
+    tag: 'The Full Session',
+    sub: 'Best for families, couples, and anyone who wants room to wander.',
+    price: '$175',
+    features: [
+      '60 minute session',
+      '100+ unedited high-res shots',
+      'Up to 2 Denver locations',
+      'All originals delivered within the hour',
+    ],
+    cta: 'Book 60 Mins',
+    highlight: true,
+  },
+];
+---
+<section id="pricing" class="py-24 md:py-32 bg-foreground text-background rounded-t-[40px]">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <span class="font-mono text-xs text-primary uppercase tracking-widest">Simple pricing</span>
+      <h2 class="font-display text-5xl md:text-6xl font-extrabold mt-4 tracking-tight">Pick a session.</h2>
+      <p class="text-background/60 mt-4 max-w-md mx-auto">No hidden fees. No upsells. You keep every single photo.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+      {plans.map(p => (
+        <div class={`p-8 md:p-10 rounded-3xl transition-colors relative group ${p.highlight ? 'border-2 border-primary bg-background/5 hover:bg-background/10' : 'border border-background/10 bg-background/5 hover:bg-background/10'}`}>
+          {p.highlight && (
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-background text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-widest">
+              Best Value
+            </div>
+          )}
+          <div class="flex justify-between items-start mb-10">
+            <div>
+              <h3 class="text-2xl font-bold tracking-tight">{p.tag}</h3>
+              <p class="text-background/60 text-sm mt-1 max-w-[26ch]">{p.sub}</p>
+            </div>
+            <span class="font-mono text-primary font-bold text-lg">{p.price}</span>
+          </div>
+          <ul class="space-y-3.5 mb-10">
+            {p.features.map(f => (
+              <li class="flex gap-3 text-sm text-background/85">
+                <span class="text-primary font-mono">+</span>
+                {f}
+              </li>
+            ))}
+          </ul>
+          <a
+            href="#book"
+            class={`block w-full text-center py-4 font-bold rounded-xl transition-all ${p.highlight ? 'bg-primary text-background hover:scale-[1.02]' : 'bg-background text-foreground group-hover:bg-primary group-hover:text-background'}`}
+          >
+            {p.cta}
+          </a>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-16 text-center max-w-xl mx-auto">
+      <p class="text-background/50 text-sm italic leading-relaxed">
+        "Literally the easiest photos I've ever had taken. I had my headshots on my laptop by the time I got to my car."
+      </p>
+      <p class="mt-3 font-mono text-[10px] uppercase tracking-widest text-background/40">— Sarah G., Denver</p>
+    </div>
+  </div>
+</section>

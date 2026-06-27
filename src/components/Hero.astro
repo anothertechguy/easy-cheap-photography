@@ -1,0 +1,65 @@
+---
+import { Image } from 'astro:assets';
+import heroImg from '../assets/hero.jpg';
+---
+<section id="top" class="relative h-[92vh] flex items-center overflow-hidden">
+  <div class="absolute inset-0 z-0 overflow-hidden">
+    <Image
+      src={heroImg}
+      alt="Denver family portrait at golden hour"
+      class="w-full h-full object-cover animate-parallax will-change-transform"
+      id="hero-img"
+      fetchpriority="high"
+      decoding="async"
+      quality={85}
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/30"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-background/70 via-background/10 to-transparent"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6 w-full">
+    <div class="max-w-2xl animate-fade-up">
+      <span class="font-mono text-xs text-accent uppercase tracking-widest flex items-center gap-2 mb-6">
+        <span class="size-1.5 bg-accent rounded-full animate-pulse"></span>
+        Serving Denver &amp; the Front Range
+      </span>
+      <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter text-balance mb-6 leading-[0.95]">
+        Just a guy with a <span class="text-primary italic">great</span> camera.
+      </h1>
+      <p class="text-lg md:text-xl text-stone-600 text-pretty mb-10 leading-relaxed max-w-xl">
+        High-end portraits without the studio ego. No umbrellas, no weird poses. Just natural
+        photos of you — delivered to your phone before we say goodbye.
+      </p>
+      <div class="flex flex-wrap gap-4 items-center">
+        <a
+          href="#book"
+          class="px-7 py-4 bg-foreground text-background font-bold rounded-xl text-base md:text-lg hover:bg-primary transition-all hover:scale-[1.02] active:scale-95 shadow-lg shadow-foreground/10"
+        >
+          Book 30 mins for $99
+        </a>
+        <a href="#gallery" class="px-6 py-4 font-medium text-foreground/80 hover:text-foreground transition-colors">
+          See the work →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-8 right-8 hidden md:flex flex-col items-end gap-1 font-mono text-[10px] uppercase tracking-widest text-foreground/50">
+    <span>Shot on professional mirrorless</span>
+    <span>Unedited · High resolution</span>
+  </div>
+</section>
+
+<script>
+  // Parallax — vanilla JS, no React re-renders
+  const img = document.getElementById('hero-img') as HTMLElement | null;
+  if (img) {
+    let raf = 0;
+    window.addEventListener('scroll', () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        img.style.transform = `translate3d(0, ${window.scrollY * 0.35}px, 0) scale(1.05)`;
+      });
+    }, { passive: true });
+  }
+</script>

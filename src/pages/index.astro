@@ -1,0 +1,54 @@
+---
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Differentiators from '../components/Differentiators.astro';
+import Gallery from '../components/Gallery.astro';
+import About from '../components/About.astro';
+import Pricing from '../components/Pricing.astro';
+import Booking from '../components/Booking';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fafaf9" />
+    <title>Easy Cheap Photography — Denver Portraits, Same-Day Delivery</title>
+    <meta name="description" content="Affordable Denver portrait photography. Pro camera, natural light, unedited high-res photos delivered to your phone the same day." />
+    <meta name="author" content="Easy Cheap Photography" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://easycheapphotography.com" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://easycheapphotography.com" />
+    <meta property="og:title" content="Easy Cheap Photography — Denver Portraits" />
+    <meta property="og:description" content="Just a guy with a great camera. Affordable Denver portraits, delivered before we even say goodbye." />
+    <meta property="og:image" content="https://easycheapphotography.com/og-image.jpg" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Easy Cheap Photography — Denver Portraits" />
+    <meta name="twitter:description" content="Affordable Denver portraits, delivered same day." />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body class="min-h-screen bg-background text-foreground font-sans">
+    <Nav />
+    <Hero />
+    <Differentiators />
+    <Gallery />
+    <About />
+    <Pricing />
+    <Booking client:load />
+    <Footer />
+  </body>
+</html>

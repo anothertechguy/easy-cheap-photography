@@ -1,0 +1,65 @@
+---
+// Differentiators.astro
+const items = [
+  {
+    no: '01',
+    tag: 'The Speed',
+    title: 'Instant Delivery',
+    body: "I dump every high-res file straight to your phone or laptop on-site. A full set lands in your inbox within the hour — no waiting weeks for a download link.",
+  },
+  {
+    no: '02',
+    tag: 'The Vibe',
+    title: 'No Lighting Gear',
+    body: "No umbrellas, no crew, no tangled cords. It's just two people hanging out in the park. Natural light, natural you, zero awkwardness.",
+  },
+  {
+    no: '03',
+    tag: 'The Files',
+    title: 'Zero Edits',
+    body: "You get the raw, unedited beauty of professional glass and sensors. No filters, no Photoshop — just high-resolution honesty you actually look like.",
+  },
+];
+---
+<section id="how-it-works" class="py-24 md:py-32 bg-stone-100">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="max-w-2xl mb-16">
+      <span class="font-mono text-xs text-primary uppercase tracking-widest">What makes it easy</span>
+      <h2 class="font-display text-4xl md:text-5xl font-extrabold tracking-tight mt-4">
+        The pro-camera shortcut.
+      </h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-10 md:gap-12">
+      {items.map((item, i) => (
+        <div
+          class="reveal transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+          style={`transition-delay: ${i * 120}ms`}
+        >
+          <span class="font-mono text-xs text-primary mb-4 block uppercase tracking-widest">
+            {item.no}. {item.tag}
+          </span>
+          <h3 class="font-display text-2xl md:text-3xl font-bold mb-3 tracking-tight">{item.title}</h3>
+          <p class="text-stone-600 leading-relaxed">{item.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Shared IntersectionObserver reveal — runs once per element, no React state
+  document.querySelectorAll('.reveal').forEach(el => {
+    (el as HTMLElement).style.opacity = '0';
+    (el as HTMLElement).style.transform = 'translateY(28px)';
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          (e.target as HTMLElement).style.opacity = '1';
+          (e.target as HTMLElement).style.transform = 'translateY(0)';
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    obs.observe(el);
+  });
+</script>
