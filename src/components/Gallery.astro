@@ -90,7 +90,7 @@ const cols = [col1, col2, col3, col4];
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-  document.querySelectorAll('#gallery-grid').forEach(grid => obs.observe(grid));
+  document.querySelectorAll('.gallery-item').forEach(item => obs.observe(item));
 
   // Column parallax
   let raf = 0;
