@@ -205,32 +205,41 @@ function Differentiators() {
           </h2>
         </div>
         <div className="grid md:grid-cols-3 gap-10 md:gap-12">
-          {items.map((it, i) => {
-            const { ref, shown } = useReveal<HTMLDivElement>();
-            return (
-              <div
-                key={it.no}
-                ref={ref}
-                className="transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
-                style={{
-                  opacity: shown ? 1 : 0,
-                  transform: shown ? "translateY(0)" : "translateY(28px)",
-                  transitionDelay: `${i * 120}ms`,
-                }}
-              >
-                <span className="font-mono text-xs text-primary mb-4 block uppercase tracking-widest">
-                  {it.no}. {it.tag}
-                </span>
-                <h3 className="font-display text-2xl md:text-3xl font-bold mb-3 tracking-tight">
-                  {it.title}
-                </h3>
-                <p className="text-stone-600 leading-relaxed">{it.body}</p>
-              </div>
-            );
-          })}
+          {items.map((it, i) => (
+            <RevealItem key={it.no} item={it} delay={i * 120} />
+          ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function RevealItem({
+  item,
+  delay,
+}: {
+  item: { no: string; tag: string; title: string; body: string };
+  delay: number;
+}) {
+  const { ref, shown } = useReveal<HTMLDivElement>();
+  return (
+    <div
+      ref={ref}
+      className="transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+      style={{
+        opacity: shown ? 1 : 0,
+        transform: shown ? "translateY(0)" : "translateY(28px)",
+        transitionDelay: `${delay}ms`,
+      }}
+    >
+      <span className="font-mono text-xs text-primary mb-4 block uppercase tracking-widest">
+        {item.no}. {item.tag}
+      </span>
+      <h3 className="font-display text-2xl md:text-3xl font-bold mb-3 tracking-tight">
+        {item.title}
+      </h3>
+      <p className="text-stone-600 leading-relaxed">{item.body}</p>
+    </div>
   );
 }
 
