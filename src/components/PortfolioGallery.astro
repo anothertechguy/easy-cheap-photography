@@ -40,10 +40,17 @@ const images = [
       <div class="absolute bottom-10 left-10 z-20 font-mono text-white/50 text-sm mix-blend-difference">
         {String(i + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}
       </div>
+      
+      {i === 0 && (
+        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-3 animate-fade-up scroll-indicator transition-opacity duration-500">
+          <span class="font-mono text-[10px] text-white/70 uppercase tracking-widest">Scroll to explore</span>
+          <div class="w-px h-16 bg-gradient-to-b from-white/50 to-transparent"></div>
+        </div>
+      )}
     </section>
   ))}
   
-  <section class="h-[50vh] w-full sticky top-0 bg-stone-950 flex flex-col items-center justify-center z-30">
+  <section class="h-[50vh] w-full sticky top-0 bg-stone-950 flex flex-col items-center justify-center z-30 shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
     <h2 class="font-display text-4xl md:text-6xl font-extrabold text-white mb-8 tracking-tight">Ready to shoot?</h2>
     <a
       href="/#book"
@@ -58,12 +65,18 @@ const images = [
   // High-end sticky scroll effect
   let raf = 0;
   const panels = document.querySelectorAll<HTMLElement>('.portfolio-panel');
+  const scrollIndicator = document.querySelector<HTMLElement>('.scroll-indicator');
   
   window.addEventListener('scroll', () => {
     cancelAnimationFrame(raf);
     raf = requestAnimationFrame(() => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
+      
+      if (scrollIndicator) {
+        scrollIndicator.style.opacity = scrollY > 100 ? '0' : '1';
+        scrollIndicator.style.pointerEvents = scrollY > 100 ? 'none' : 'auto';
+      }
       
       panels.forEach((panel, i) => {
         const rect = panel.getBoundingClientRect();
@@ -79,16 +92,18 @@ const images = [
           
           // Distance the next panel has covered over the current panel (0 to windowHeight)
           const overlap = Math.max(0, windowHeight - nextRect.top);
+          // Easing for smoother parallax scale (ease-in effect)
           const progress = Math.min(1, overlap / windowHeight);
+          const easeProgress = progress * progress; 
           
-          // Parallax effect: push the inner image down slightly as it gets covered
+          // Enhanced Parallax effect: push down and scale out significantly for dramatic depth
           if (inner) {
-            inner.style.transform = `translate3d(0, ${progress * 15}vh, 0) scale(${1 - progress * 0.05})`;
+            inner.style.transform = `translate3d(0, ${progress * 25}vh, 0) scale(${1 - easeProgress * 0.15})`;
           }
           
           // Fade overlay to black as it gets covered to enhance depth
           if (overlay) {
-            overlay.style.opacity = (progress * 0.8).toString();
+            overlay.style.opacity = (progress * 0.9).toString();
           }
         } else {
           // Reset
