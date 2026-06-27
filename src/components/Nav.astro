@@ -1,21 +1,26 @@
 ---
 // Nav.astro
+export interface Props {
+  theme?: 'light' | 'dark';
+}
+const { theme = 'light' } = Astro.props;
+const isDark = theme === 'dark';
 ---
-<nav class="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b border-border">
+<nav class={`sticky top-0 z-50 w-full backdrop-blur-md border-b transition-colors ${isDark ? 'bg-stone-950/80 border-stone-800 text-white' : 'bg-background/80 border-border text-foreground'}`}>
   <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href="#top" class="flex items-center gap-2">
-      <span class="font-display font-extrabold text-xl tracking-tighter">EASYCHEAP</span>
-      <span class="font-mono text-[10px] bg-accent/10 text-accent px-1.5 py-0.5 rounded">DENVER</span>
+    <a href="/#top" class="flex items-center gap-2">
+      <span class="font-display font-extrabold text-xl tracking-tighter">EASY. CHEAP.</span>
+      <span class={`font-mono text-[10px] px-1.5 py-0.5 rounded ${isDark ? 'bg-white/10 text-white' : 'bg-accent/10 text-accent'}`}>PHOTOGRAPHY.</span>
     </a>
     <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-      <a href="#gallery" class="hover:text-primary transition-colors">Work</a>
-      <a href="#how-it-works" class="hover:text-primary transition-colors">The Deal</a>
-      <a href="#pricing" class="hover:text-primary transition-colors">Pricing</a>
-      <a href="#book" class="bg-foreground text-background px-4 py-2 rounded-full hover:bg-primary transition-colors">
+      <a href="/portfolio" class="hover:text-primary transition-colors">Work</a>
+      <a href="/#how-it-works" class="hover:text-primary transition-colors">The Deal</a>
+      <a href="/#pricing" class="hover:text-primary transition-colors">Pricing</a>
+      <a href="/#book" class={`px-4 py-2 rounded-full hover:bg-primary hover:text-white transition-colors ${isDark ? 'bg-white text-stone-950' : 'bg-foreground text-background'}`}>
         Book Session
       </a>
     </div>
-    <a href="#book" class="md:hidden bg-foreground text-background px-4 py-2 rounded-full text-sm font-medium">
+    <a href="/#book" class={`md:hidden px-4 py-2 rounded-full text-sm font-medium ${isDark ? 'bg-white text-stone-950' : 'bg-foreground text-background'}`}>
       Book
     </a>
   </div>

@@ -1,0 +1,101 @@
+---
+import { Image } from 'astro:assets';
+import g1 from '../assets/g1.jpg';
+import g2 from '../assets/g2.jpg';
+import g3 from '../assets/g3.jpg';
+import g4 from '../assets/g4.jpg';
+import g5 from '../assets/g5.jpg';
+import g6 from '../assets/g6.jpg';
+import g7 from '../assets/g7.jpg';
+import g8 from '../assets/g8.jpg';
+
+const images = [
+  { src: g1, alt: 'Woman laughing in a sunlit field' },
+  { src: g2, alt: 'Child smiling in golden bokeh' },
+  { src: g3, alt: 'Couple walking at Red Rocks' },
+  { src: g4, alt: 'Outdoor headshot portrait' },
+  { src: g5, alt: 'Family on a park bench in autumn' },
+  { src: g6, alt: 'Golden retriever in golden hour light' },
+  { src: g7, alt: 'Artist in a sunlit studio' },
+  { src: g8, alt: 'Man leaning against a brick wall in LoDo' },
+];
+---
+<div class="relative w-full bg-stone-950">
+  {images.map((img, i) => (
+    <section class="portfolio-panel h-screen w-full sticky top-0 overflow-hidden flex items-center justify-center">
+      <!-- Dark overlay for stacking effect -->
+      <div class="absolute inset-0 bg-black/40 z-10 opacity-0 panel-overlay transition-opacity duration-300 pointer-events-none"></div>
+      
+      <div class="relative w-full h-full panel-inner will-change-transform">
+        <Image
+          src={img.src}
+          alt={img.alt}
+          loading={i === 0 ? "eager" : "lazy"}
+          decoding="async"
+          quality={90}
+          class="w-full h-full object-cover object-center"
+        />
+      </div>
+      
+      <div class="absolute bottom-10 left-10 z-20 font-mono text-white/50 text-sm mix-blend-difference">
+        {String(i + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}
+      </div>
+    </section>
+  ))}
+  
+  <section class="h-[50vh] w-full sticky top-0 bg-stone-950 flex flex-col items-center justify-center z-30">
+    <h2 class="font-display text-4xl md:text-6xl font-extrabold text-white mb-8 tracking-tight">Ready to shoot?</h2>
+    <a
+      href="/#book"
+      class="px-8 py-4 bg-white text-stone-950 font-bold rounded-full hover:scale-105 transition-transform duration-300"
+    >
+      Book a Session
+    </a>
+  </section>
+</div>
+
+<script>
+  // High-end sticky scroll effect
+  let raf = 0;
+  const panels = document.querySelectorAll<HTMLElement>('.portfolio-panel');
+  
+  window.addEventListener('scroll', () => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      
+      panels.forEach((panel, i) => {
+        const rect = panel.getBoundingClientRect();
+        const panelTop = rect.top;
+        const inner = panel.querySelector<HTMLElement>('.panel-inner');
+        const overlay = panel.querySelector<HTMLElement>('.panel-overlay');
+        
+        // If the panel is sticking to the top (or above), we calculate its "progress"
+        // as the next panel scrolls over it.
+        if (panelTop <= 0 && i < panels.length - 1) {
+          const nextPanel = panels[i + 1];
+          const nextRect = nextPanel.getBoundingClientRect();
+          
+          // Distance the next panel has covered over the current panel (0 to windowHeight)
+          const overlap = Math.max(0, windowHeight - nextRect.top);
+          const progress = Math.min(1, overlap / windowHeight);
+          
+          // Parallax effect: push the inner image down slightly as it gets covered
+          if (inner) {
+            inner.style.transform = `translate3d(0, ${progress * 15}vh, 0) scale(${1 - progress * 0.05})`;
+          }
+          
+          // Fade overlay to black as it gets covered to enhance depth
+          if (overlay) {
+            overlay.style.opacity = (progress * 0.8).toString();
+          }
+        } else {
+          // Reset
+          if (inner) inner.style.transform = `translate3d(0, 0, 0) scale(1)`;
+          if (overlay) overlay.style.opacity = '0';
+        }
+      });
+    });
+  }, { passive: true });
+</script>

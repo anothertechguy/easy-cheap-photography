@@ -1,0 +1,44 @@
+---
+import Nav from '../components/Nav.astro';
+import PortfolioGallery from '../components/PortfolioGallery.astro';
+import '../styles/global.css';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fafaf9" />
+    <title>Portfolio | Easy Cheap Photography</title>
+    <meta name="description" content="View the full portfolio. High-end, unedited Denver portrait photography." />
+    <meta name="author" content="Easy Cheap Photography" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://easycheapphotography.com/portfolio" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://easycheapphotography.com/portfolio" />
+    <meta property="og:title" content="Portfolio | Easy Cheap Photography" />
+    <meta property="og:description" content="View the full portfolio. High-end, unedited Denver portrait photography." />
+    <meta property="og:image" content="https://easycheapphotography.com/og-image.jpg" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Portfolio | Easy Cheap Photography" />
+    <meta name="twitter:description" content="View the full portfolio." />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body class="min-h-screen bg-stone-950 text-white font-sans">
+    <Nav />
+    <main>
+      <PortfolioGallery />
+    </main>
+  </body>
+</html>
